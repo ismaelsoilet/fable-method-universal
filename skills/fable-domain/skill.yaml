@@ -1,0 +1,52 @@
+name: fable-domain
+description: "Discuss a domain with the user, research it from real sources, then generate a trusted skill bundle for it - a step-by-step workflow with a flowchart, a domain adapter, a trap fixture, and a smoke eval."
+version: "1.4.0"
+bundle: fable-method
+
+triggers:
+  primary: "/fable-domain"
+  aliases:
+    - "make a skill for"
+    - "add a domain to the fable method"
+    - "give a workflow for"
+
+capabilities:
+  required:
+    - read
+    - write
+  optional:
+    - web_fetch
+    - parallel_workers
+
+abstractions:
+  parallel_worker:
+    description: "Run research and verification tasks in parallel"
+    implementations:
+      opencode:
+        tool: task
+        description: "OpenCode task tool for parallel research"
+      cursor:
+        tool: agent
+        description: "Cursor agent tool for parallel research"
+      antigravity:
+        tool: agent
+        description: "Antigravity agent tool for parallel research"
+      claude_code:
+        tool: subagent
+        description: "Claude Code subagent for parallel research"
+      generic:
+        tool: none
+        description: "No parallel worker. Perform research sequentially."
+
+content:
+  main: "SKILL.md"
+  references:
+    - "references/"
+
+metadata:
+  category: "skill-generation"
+  difficulty: "advanced"
+  estimated_time: "1-3 hours"
+  prerequisites:
+    - "fable-method skill"
+    - "fable-judge skill"

@@ -1,0 +1,79 @@
+name: fable-method
+description: "A step-by-step problem-solving loop (classify the ask, define done, gather evidence, decide, act surgically, verify by observation, report outcome-first)."
+version: "1.4.0"
+bundle: fable-method
+
+triggers:
+  primary: "/fable-method"
+  aliases:
+    - "use the fable method"
+    - "approach this like Fable"
+    - "think step by step"
+  subcommands:
+    plan: "Steps 0-3 only: classify, define done, gather evidence, deliver the plan, stop"
+    audit: "Grade work already done against the loop: which steps were skipped or faked"
+    report: "Rewrite the pending answer outcome-first with honest caveats"
+
+capabilities:
+  required:
+    - read
+    - write
+    - list_directory
+    - search
+  optional:
+    - web_fetch
+    - parallel_workers
+
+abstractions:
+  parallel_worker:
+    description: "Run an independent sub-task in parallel for evidence gathering"
+    implementations:
+      opencode:
+        tool: task
+        description: "OpenCode task tool for parallel evidence gathering"
+      cursor:
+        tool: agent
+        description: "Cursor agent tool for parallel evidence gathering"
+      antigravity:
+        tool: agent
+        description: "Antigravity agent tool for parallel evidence gathering"
+      claude_code:
+        tool: subagent
+        description: "Claude Code subagent for parallel evidence gathering"
+      generic:
+        tool: none
+        description: "No parallel worker. Batch independent reads in one message instead."
+  task_tracker:
+    description: "Track multi-step work with a todo list"
+    implementations:
+      opencode:
+        tool: todowrite
+        description: "OpenCode todowrite tool"
+      cursor:
+        tool: todo
+        description: "Cursor todo tool"
+      antigravity:
+        tool: todo
+        description: "Antigravity todo tool"
+      claude_code:
+        tool: todo
+        description: "Claude Code todo tool"
+      generic:
+        tool: markdown_list
+        description: "Maintain a markdown checklist in context"
+
+content:
+  main: "SKILL.md"
+  references:
+    - "references/flowcharts.md"
+    - "references/failure-modes.md"
+    - "references/examples.md"
+    - "references/domains/"
+
+metadata:
+  category: "problem-solving"
+  difficulty: "intermediate"
+  estimated_time: "5-30 minutes per task"
+  prerequisites:
+    - "Basic understanding of the project structure"
+    - "Access to read files and run commands"

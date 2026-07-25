@@ -1,0 +1,148 @@
+name: fable-method
+version: "1.4.0"
+description: >
+  The Fable Workflow: how Claude Fable 5 worked, distilled into four skills any model can run.
+  Think (fable-method), act (fable-loop), prove (fable-judge), grow (fable-domain).
+  Evidence-backed: ships its own eval, failures included.
+author:
+  name: Sahir619
+  original_repo: https://github.com/Sahir619/fable-method
+license: MIT
+homepage: https://github.com/Sahir619/fable-method
+
+skills:
+  - fable-method
+  - fable-loop
+  - fable-judge
+  - fable-domain
+
+adapters:
+  - opencode
+  - cursor
+  - antigravity
+  - claude-code
+  - generic
+
+abstractions:
+  parallel_worker:
+    description: >
+      Run an independent sub-task in parallel. Used by fable-loop for evidence gathering
+      and adversarial verification.
+    implementations:
+      opencode:
+        tool: task
+        description: "OpenCode task tool for parallel subagent execution"
+      cursor:
+        tool: agent
+        description: "Cursor agent tool for parallel execution"
+      antigravity:
+        tool: agent
+        description: "Antigravity agent tool for parallel execution"
+      claude_code:
+        tool: subagent
+        description: "Claude Code subagent for parallel execution"
+      generic:
+        tool: none
+        description: >
+          No parallel worker available. Work sequentially with a note about the limitation.
+          The model should batch independent reads and note when parallelism is unavailable."
+
+  task_tracker:
+    description: >
+      Track multi-step work with a todo list. Required for tasks with 3+ heterogeneous steps.
+    implementations:
+      opencode:
+        tool: todowrite
+        description: "OpenCode todowrite tool"
+      cursor:
+        tool: todo
+        description: "Cursor todo tool"
+      antigravity:
+        tool: todo
+        description: "Antigravity todo tool"
+      claude_code:
+        tool: todo
+        description: "Claude Code todo tool"
+      generic:
+        tool: markdown_list
+        description: >
+          Maintain a markdown checklist in context. Write the list at the start,
+          tick items as they complete."
+
+  web_fetch:
+    description: >
+      Fetch content from a URL. Used for research, documentation lookups, and source verification.
+    implementations:
+      opencode:
+        tool: webfetch
+        description: "OpenCode webfetch tool"
+      cursor:
+        tool: web_fetch
+        description: "Cursor web fetch tool"
+      antigravity:
+        tool: web_fetch
+        description: "Antigravity web fetch tool"
+      claude_code:
+        tool: WebFetch
+        description: "Claude Code WebFetch tool"
+      generic:
+        tool: none
+        description: >
+          No web fetch available. Note when memory-based information is used and
+          recommend manual verification."
+
+  git_operations:
+    description: >
+      Git operations for diff, status, and change tracking. Used by fable-judge.
+    implementations:
+      opencode:
+        tool: bash
+        description: "OpenCode bash tool for git commands"
+      cursor:
+        tool: terminal
+        description: "Cursor terminal tool for git commands"
+      antigravity:
+        tool: bash
+        description: "Antigravity bash tool for git commands"
+      claude_code:
+        tool: bash
+        description: "Claude Code bash tool for git commands"
+      generic:
+        tool: none
+        description: >
+          No git operations available. Note when diff-based verification is unavailable."
+
+  file_operations:
+    description: >
+      Read, write, and search files. Core capability for all skills.
+    implementations:
+      opencode:
+        read: read
+        write: write
+        edit: edit
+        search: grep
+        list: bash
+      cursor:
+        read: read
+        write: write
+        edit: edit
+        search: grep
+        list: ls
+      antigravity:
+        read: read
+        write: write
+        edit: edit
+        search: grep
+        list: ls
+      claude_code:
+        read: read
+        write: write
+        edit: edit
+        search: grep
+        list: ls
+      generic:
+        read: read
+        write: write
+        edit: edit
+        search: grep
+        list: ls

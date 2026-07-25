@@ -1,0 +1,42 @@
+# Schema for individual skill manifests
+# Each skill in the bundle uses this schema
+# The schema is validated by the installer
+
+name: string          # Skill name (e.g., "fable-method")
+description: string   # Short description for skill discovery
+version: string       # Skill version (semver)
+bundle: string        # Parent bundle name (e.g., "fable-method")
+
+# How to trigger the skill
+triggers:
+  primary: string     # Primary trigger (e.g., "/fable-method")
+  aliases: string[]   # Alternative trigger phrases
+  subcommands:        # Optional subcommands
+    <name>: string    # Description of what the subcommand does
+
+# Required and optional capabilities
+capabilities:
+  required: string[]  # Must-have capabilities (read, write, list_directory, search)
+  optional: string[]  # Nice-to-have capabilities (web_fetch, parallel_workers, git_operations)
+
+# Framework-agnostic abstractions
+# Maps abstract concepts to framework-specific implementations
+abstractions:
+  <abstract_name>:
+    description: string
+    implementations:
+      <framework>:
+        tool: string       # Tool name in that framework
+        description: string # How it works in that framework
+
+# Content files
+content:
+  main: string          # Main skill file (SKILL.md)
+  references: string[]  # Additional reference files
+
+# Metadata for skill discovery
+metadata:
+  category: string      # e.g., "problem-solving", "verification", "domain-generation"
+  difficulty: string    # e.g., "beginner", "intermediate", "advanced"
+  estimated_time: string # e.g., "5-10 minutes", "1-2 hours"
+  prerequisites: string[] # Other skills or knowledge needed

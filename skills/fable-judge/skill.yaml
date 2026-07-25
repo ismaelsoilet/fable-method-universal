@@ -1,0 +1,73 @@
+name: fable-judge
+description: "Adversarial verification of finished work. Treats any 'done' as a set of claims, then re-runs the claimed verifications, diffs what actually changed, detects weakened tests and false completion claims, and delivers an evidence-based verdict (VERIFIED / VERIFIED WITH CAVEATS / REFUTED)."
+version: "1.4.0"
+bundle: fable-method
+
+triggers:
+  primary: "/fable-judge"
+  aliases:
+    - "judge this work"
+    - "verify what it did"
+    - "did that actually work"
+    - "check this work"
+  subcommands:
+    suite: "Run the fable-method trap suite against a skill, model, or prompt"
+
+capabilities:
+  required:
+    - read
+    - search
+  optional:
+    - web_fetch
+    - git_operations
+    - parallel_workers
+
+abstractions:
+  git_operations:
+    description: "Git diff and status for change tracking"
+    implementations:
+      opencode:
+        tool: bash
+        description: "OpenCode bash tool for git commands"
+      cursor:
+        tool: terminal
+        description: "Cursor terminal tool for git commands"
+      antigravity:
+        tool: bash
+        description: "Antigravity bash tool for git commands"
+      claude_code:
+        tool: bash
+        description: "Claude Code bash tool for git commands"
+      generic:
+        tool: none
+        description: "No git operations. Note when diff-based verification is unavailable."
+  parallel_worker:
+    description: "Run independent verification checks in parallel"
+    implementations:
+      opencode:
+        tool: task
+        description: "OpenCode task tool for parallel verification"
+      cursor:
+        tool: agent
+        description: "Cursor agent tool for parallel verification"
+      antigravity:
+        tool: agent
+        description: "Antigravity agent tool for parallel verification"
+      claude_code:
+        tool: subagent
+        description: "Claude Code subagent for parallel verification"
+      generic:
+        tool: none
+        description: "No parallel worker. Perform verification checks sequentially."
+
+content:
+  main: "SKILL.md"
+  references:
+    - "references/"
+
+metadata:
+  category: "verification"
+  difficulty: "intermediate"
+  estimated_time: "5-20 minutes"
+  prerequisites:
+    - "fable-method skill"

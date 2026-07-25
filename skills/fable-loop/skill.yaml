@@ -1,0 +1,76 @@
+name: fable-loop
+description: "End-to-end orchestrated workflow that runs a task the way Fable ran sessions - parallel evidence subagents, one committed plan, surgical execution with an intent gate, adversarial verification agents, honest outcome-first report."
+version: "1.4.0"
+bundle: fable-method
+
+triggers:
+  primary: "/fable-loop"
+  aliases:
+    - "run the fable loop"
+    - "do this the way Fable would"
+    - "orchestrate this task"
+
+capabilities:
+  required:
+    - read
+    - write
+    - list_directory
+    - search
+  optional:
+    - web_fetch
+    - parallel_workers
+    - git_operations
+
+abstractions:
+  parallel_worker:
+    description: "Run an independent sub-task in parallel. Used for evidence gathering, codebase exploration, and adversarial verification."
+    implementations:
+      opencode:
+        tool: task
+        description: "OpenCode task tool for parallel subagent execution"
+      cursor:
+        tool: agent
+        description: "Cursor agent tool for parallel execution"
+      antigravity:
+        tool: agent
+        description: "Antigravity agent tool for parallel execution"
+      claude_code:
+        tool: subagent
+        description: "Claude Code subagent for parallel execution"
+      generic:
+        tool: none
+        description: >
+          No parallel worker available. Perform evidence gathering and verification
+          sequentially, batching independent reads in one message. Note this
+          limitation in the report."
+  task_tracker:
+    description: "Track multi-step work with a todo list"
+    implementations:
+      opencode:
+        tool: todowrite
+        description: "OpenCode todowrite tool"
+      cursor:
+        tool: todo
+        description: "Cursor todo tool"
+      antigravity:
+        tool: todo
+        description: "Antigravity todo tool"
+      claude_code:
+        tool: todo
+        description: "Claude Code todo tool"
+      generic:
+        tool: markdown_list
+        description: "Maintain a markdown checklist in context"
+
+content:
+  main: "SKILL.md"
+  references:
+    - "references/"
+
+metadata:
+  category: "orchestration"
+  difficulty: "advanced"
+  estimated_time: "30 minutes - 2 hours"
+  prerequisites:
+    - "fable-method skill"
+    - "Basic understanding of the project structure"
