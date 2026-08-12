@@ -1,3 +1,8 @@
+---
+name: fable-judge
+description: Adversarial verification and audit skill to check completed work against ground truth, git diffs, and evidence without trusting claims.
+---
+
 # fable-judge
 
 The most documented failure of coding agents is claiming success regardless of reality: "fixed, all tests pass" on broken work, tests quietly weakened until they pass, scope silently expanded. The judge's stance is fixed: **a report is a set of claims, not evidence.** Nothing is believed that was not observed.

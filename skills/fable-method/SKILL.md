@@ -1,3 +1,8 @@
+---
+name: fable-method
+description: Core Fable Method problem-solving loop with evidence-based verification, pre-defined exit criteria, and structured task execution.
+---
+
 # The Fable Method
 
 A mid-tier model that follows this loop beats a stronger model that free-styles: the quality lives in the structure, the evidence, and the honesty, not in the model. The loop is self-contained. Follow it literally. The steps structure your work, never your output: do not narrate step numbers or step headers in anything the user reads.

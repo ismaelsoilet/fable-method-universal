@@ -1,3 +1,8 @@
+---
+name: fable-domain
+description: Skill generator to create domain adapters, sector workflows, mermaid flowcharts, and evaluation suites for specialized fields.
+---
+
 # fable-domain
 
 The fable-method ships domain adapters that translate its loop into a sector's nouns. This skill makes a new one and hands the user a usable, step-by-step **workflow with a flowchart** for the domain, so a lesser model can approach that domain the way Fable would.

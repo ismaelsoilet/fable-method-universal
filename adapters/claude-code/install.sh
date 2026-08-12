@@ -13,13 +13,16 @@ while [[ $# -gt 0 ]]; do
             MODE="plugin"
             shift
             ;;
-        --standalone)
+        --standalone|--global|--project)
             MODE="standalone"
             shift
+            if [[ "${1:-}" != "" && "${1:-}" != "--"* ]]; then
+                shift
+            fi
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--plugin | --standalone]"
+            echo "Usage: $0 [--plugin | --standalone | --global | --project <path>]"
             exit 1
             ;;
     esac

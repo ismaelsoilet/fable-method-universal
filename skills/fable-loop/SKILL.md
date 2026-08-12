@@ -1,3 +1,8 @@
+---
+name: fable-loop
+description: Orchestrated workflow for the Fable Method featuring parallel worker fan-out, plan artifacts, and adversarial verification.
+---
+
 # The Fable Loop
 
 This skill orchestrates the fable-method: read its SKILL.md first; its rules govern every stage. It is installed alongside this skill (in this plugin's `skills/fable-method/` directory, or `~/.claude/skills/fable-method/` for manual installs). The method says WHAT to check; this loop says WHO does the work: what runs in the main thread, what fans out to parallel workers, and what gets attacked before delivery.
